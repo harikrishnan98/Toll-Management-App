@@ -1,0 +1,47 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: #F5F5F5;
+}
+button {
+    background: #027bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-right: 12px;
+}
+
+button:hover {
+    cursor: pointer;
+    background: #0756ac;
+}
+button:disabled { 
+    background: rgba(239, 239, 239, 0.3);
+    color: rgb(127 124 124 / 30%);
+    border: 1px solid #efefef;
+}
+button:disabled:hover {
+    background:rgba(239, 239, 239, 0.3);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+input:focus {
+    outline: none;
+}
+
+.required::after {
+    content: "*";
+    display: inline;
+    color: red;
+}
