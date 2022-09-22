@@ -179,6 +179,7 @@ export default {
     methods: {
         addVehicle() {
             this.openAddVehicle = true;
+            this.openFilter = false;
         },
         close() {
             this.openAddVehicle = false;
@@ -186,6 +187,7 @@ export default {
         },
         addToll() {
             this.openToll = true;
+            this.openFilter = false;
         },
         openFilterPopUp() {
             const gateList = JSON.parse(sessionStorage.getItem('tollNames'));

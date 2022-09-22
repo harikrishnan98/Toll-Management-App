@@ -19,11 +19,13 @@
                 <div class="vehicle car">
                  <div class="detail__input">
                     <select v-model="toll.fareDetails.vehicle_1.type" name="vehicleType" id="vType" class="vehicleType">
+                        
                         <option value="">Select Vehicle Type</option>
-                        <option value="Car/Jeep/Van">Car/Jeep/Van</option>
+                        <option :key="vehicle" v-for="vehicle in dropdown_1" :value="vehicle">{{vehicle}}</option>
+                        <!-- <option value="Car/Jeep/Van">Car/Jeep/Van</option>
                         <option value="LCU">LCU</option>
                         <option value="Truck/Bus">Truck/Bus</option>
-                        <option value="Heavy vehicle">Heavy vehicle</option>
+                        <option value="Heavy vehicle">Heavy vehicle</option> -->
                     </select>
                 </div>
                 <div class="detail__single">
@@ -37,10 +39,10 @@
                  <div class="detail__input">
                     <select v-model="toll.fareDetails.vehicle_2.type" name="vehicleType" id="vType" class="vehicleType">
                         <option value="">Select Vehicle Type</option>
-                        <option value="Car/Jeep/Van">Car/Jeep/Van</option>
-                        <option value="LCU">LCU</option>
+                        <option :key="vehicle" v-for="vehicle in secondDropDown" :value="vehicle">{{vehicle}}</option>
+                        <!-- <option value="LCU">LCU</option>
                         <option value="Truck/Bus">Truck/Bus</option>
-                        <option value="Heavy vehicle">Heavy vehicle</option>
+                        <option value="Heavy vehicle">Heavy vehicle</option> -->
                     </select>
                 </div>
                 <div class="detail__single">
@@ -54,10 +56,8 @@
                  <div class="detail__input">
                     <select v-model="toll.fareDetails.vehicle_3.type" name="vehicleType" id="vType" class="vehicleType">
                         <option value="">Select Vehicle Type</option>
-                        <option value="Car/Jeep/Van">Car/Jeep/Van</option>
-                        <option value="LCU">LCU</option>
-                        <option value="Truck/Bus">Truck/Bus</option>
-                        <option value="Heavy vehicle">Heavy vehicle</option>
+                        <option :key="vehicle" v-for="vehicle in thirdDropDown" :value="vehicle">{{vehicle}}</option>
+
                     </select>
                 </div>
                 <div class="detail__single">
@@ -71,10 +71,7 @@
                  <div class="detail__input">
                     <select v-model="toll.fareDetails.vehicle_4.type" name="vehicleType" id="vType" class="vehicleType">
                         <option value="">Select Vehicle Type</option>
-                        <option value="Car/Jeep/Van">Car/Jeep/Van</option>
-                        <option value="LCU">LCU</option>
-                        <option value="Truck/Bus">Truck/Bus</option>
-                        <option value="Heavy vehicle">Heavy vehicle</option>
+                        <option :key="vehicle" v-for="vehicle in fourthDropDown" :value="vehicle">{{vehicle}}</option>
                     </select>
                 </div>
                 <div class="detail__single">
@@ -89,7 +86,7 @@
             </div>
         </div>
         <div class="submit-btn">
-            <button @click="addNewToll()" class="add-btn">Add Details</button>
+            <button @click="addNewToll()" class="add-btn" :disabled="isValid()">Add Details</button>
         </div>
     </div>
    </div>
@@ -101,12 +98,6 @@ export default {
     name: "AddTollModal",
     data: () => {
         return {
-            entry : {
-                tollName: '',
-                vehicleType: '',
-                vehicleNo: '',
-                tariff: ''
-            },
             toll: {
                 tollDetails: '',
                 fareDetails: {
@@ -134,7 +125,44 @@ export default {
             },
             tollList: [],
             tollNames: [],
+            dropdown_1: ['Car/Jeep/Van','LCU', 'Truck/Bus' ,'Heavy vehicle'],
+            dropdown_2: ['Car/Jeep/Van','LCU', 'Truck/Bus' ,'Heavy vehicle'],
+            dropdown_3: ['Car/Jeep/Van','LCU', 'Truck/Bus' ,'Heavy vehicle'],
+            dropdown_4: ['Car/Jeep/Van','LCU', 'Truck/Bus' ,'Heavy vehicle'],
         }
+    },
+    computed: {
+        secondDropDown() {
+        this.dropdown_2 = ['Car/Jeep/Van','LCU', 'Truck/Bus' ,'Heavy vehicle'];
+        if(this.toll.fareDetails.vehicle_1.type) {
+           const idx = this.dropdown_2.findIndex(name => name === this.toll.fareDetails.vehicle_1.type)
+           this.dropdown_2.splice(idx, 1);
+           return this.dropdown_2;
+        }
+        },
+        thirdDropDown() {
+        this.dropdown_3 = ['Car/Jeep/Van','LCU', 'Truck/Bus' ,'Heavy vehicle'];
+        if(this.toll.fareDetails.vehicle_2.type) {
+           const id = this.dropdown_3.findIndex(name => name === this.toll.fareDetails.vehicle_1.type);
+           this.dropdown_3.splice(id, 1);
+           const idx = this.dropdown_3.findIndex(name => name === this.toll.fareDetails.vehicle_2.type);
+           this.dropdown_3.splice(idx, 1);
+           return this.dropdown_3;
+        }
+        },
+        fourthDropDown() {
+        this.dropdown_4 = ['Car/Jeep/Van','LCU', 'Truck/Bus' ,'Heavy vehicle'];
+        if(this.toll.fareDetails.vehicle_2.type) {
+           const id = this.dropdown_4.findIndex(name => name === this.toll.fareDetails.vehicle_1.type);
+           this.dropdown_4.splice(id, 1);
+           const idx = this.dropdown_4.findIndex(name => name === this.toll.fareDetails.vehicle_2.type);
+           this.dropdown_4.splice(idx, 1);
+           const ind = this.dropdown_4.findIndex(name => name === this.toll.fareDetails.vehicle_3.type);
+           this.dropdown_4.splice(ind, 1);
+           return this.dropdown_4;
+        }
+        }
+        
     },
     methods: {
         closeModalPopUp() {
@@ -152,12 +180,12 @@ export default {
 
         },
         isValid() {
-            if(this.entry.tollName && this.entry.vehicleType && this.entry.vehicleNo && this.entry.tariff) {
+            if(this.toll.tollDetails) {
                 return false;
-            } else {
+            } else { 
                 return true;
             }
-        }
+        },
     },
     created() {
          const prevList = JSON.parse(sessionStorage.getItem('tollDetails'));

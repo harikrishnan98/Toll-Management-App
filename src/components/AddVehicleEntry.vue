@@ -75,31 +75,6 @@ export default {
                 tariff: '',
                 date: ''
             },
-            toll: {
-                tollDetails: '',
-                fareDetails: {
-                    vehicle_1: {
-                        type: '',
-                        single: '',
-                        return: ''
-                    },
-                    vehicle_2: {
-                        type: '',
-                        single: '',
-                        return: ''
-                    },
-                    vehicle_3: {
-                        type: '',
-                        single: '',
-                        return: ''
-                    },
-                    vehicle_4: {
-                        type: '',
-                        single: '',
-                        return: ''
-                    }
-                }
-            },
             vehicleList: [],
             tollNames: [],
             
