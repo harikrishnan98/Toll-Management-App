@@ -117,6 +117,7 @@ export default {
              this.$emit('view-vehicle-list', {tName: this.entry.tollName, vType: this.entry.vehicleType, vNo: this.entry.vehicleNo,
              tariff: this.entry.tariff, date: this.entry.date});
              alert('Vehicle Added Successfully');
+             this.$emit('closeVModal');
             
         },
         isValid() {

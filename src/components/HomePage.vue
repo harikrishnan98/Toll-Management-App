@@ -198,11 +198,11 @@ export default {
         },
         viewList(list) {
             this.vehicleList.push(list);
-            
         },
         viewAllTolls() {
             this.viewVehicle = false;
             this.noResults = false;
+            this.openFilter = false;    
             this.viewTolls = true;
             const tollList = JSON.parse(sessionStorage.getItem('tollDetails'));
             this.tollDetails = tollList ? tollList : [];
@@ -348,7 +348,7 @@ td {
     display: flex;
     width: 176px;
     z-index: 9999;
-    height: 180px;
+    height: 140px;
     overflow: scroll;
     position: absolute;
     box-shadow: 0 1px 3px #000000bf;

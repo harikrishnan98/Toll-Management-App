@@ -147,6 +147,7 @@ export default {
             sessionStorage.setItem('tollNames', JSON.stringify(this.tollNames));
             this.$emit('updated-toll-names', {tollName: this.toll.tollDetails.trim(), fareDetails: this.toll.fareDetails});
             alert('Toll Details Added Successfully');
+            this.$emit('closeTollModal');
 
 
         },
